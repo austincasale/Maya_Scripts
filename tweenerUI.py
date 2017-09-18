@@ -50,3 +50,39 @@ def tween(percentage, obj=None, attrs=None, selection=True):
 		
 		cmds.setKeyframe(attrFull, time=currentTime, value=currentValue)
 		
+
+class TweenWindow(object):
+	
+	windowName = "TweenerWindow"
+	
+	def show(self):
+		if cmds.window(self.windowName, query=True, exists=True):
+			cmds.deleteUI(self.windowName)
+			
+		cmds.window(self.windowName)
+		
+		self.buildUI()
+		
+		cmds.showWindow()
+		
+	def buildUI(self):
+		column = cmds.columnLayout()
+		
+		cmds.text(label="Use this slider to set tween amount")
+		
+		row = cmds.rowLayout(numberOfColumns=2)
+		
+		self.slider = cmds.floatSlider(min=0, max=100, value=50, step=1, changeCommand=tween)
+		
+		cmds.button(label="Reset", command=self.reset)
+		
+	#maya buttons send an extra value
+	def reset(self, *args):
+		cmds.floatSlider(self.slider, edit=True, value=50)
+		
+		
+		
+		
+		
+		
+		
