@@ -75,11 +75,15 @@ class TweenWindow(object):
 		self.slider = cmds.floatSlider(min=0, max=100, value=50, step=1, changeCommand=tween)
 		
 		cmds.button(label="Reset", command=self.reset)
+		cmds.setParent(column)
+		cmds.button(label="Close", command=self.close)
 		
 	#maya buttons send an extra value
 	def reset(self, *args):
 		cmds.floatSlider(self.slider, edit=True, value=50)
-		
+				
+	def close(self, *args):
+		cmds.deleteUI(self.windowName)
 		
 		
 		
